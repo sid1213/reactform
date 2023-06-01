@@ -1,0 +1,33 @@
+.typography {
+  :global(.ant-typography) {
+    color: white;
+    margin: 0 !important;
+    letter-spacing: 0.03em;
+  }
+  :global(.ant-typography-secondary) {
+    color: #bfbfbf;
+    font-weight: 400;
+  }
+  :global(.slick-dots) {
+    margin-top: 1rem;
+    position: static;
+    margin-right: auto;
+    justify-content: start;
+    li {
+      width: fit-content;
+
+      button {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+    }
+  }
+  :global(.slick-active) {
+    button {
+      width: 1.5rem !important;
+      height: 0.45rem !important;
+      border-radius: 0.5rem !important;
+    }
+  }
+}
