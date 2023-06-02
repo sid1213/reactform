@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +6,21 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+html {
+  @media screen and (max-width: 425px) {
+    font-size: 14px;
+  }
+}
+
 @layer components {
   .layout {
-    @apply container mx-auto w-full h-screen p-4;
+    @apply lg:container mx-auto w-full h-screen lg:p-4  flex flex-wrap items-center;
   }
+}
+
+.button-shadow {
+  box-shadow: 0px 20px 32px rgba(2, 1, 0, 0.42);
+}
+.mt-10I {
+  margin-top: 5rem !important;
 }

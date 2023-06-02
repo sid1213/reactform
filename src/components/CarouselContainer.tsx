@@ -12,7 +12,7 @@ const { Title } = Typography;
 
 const CarouselContainer = () => {
   return (
-    <div className="w-1/2 h-full relative p-5 text-white rounded-xl overflow-hidden flex flex-col justify-between">
+    <div className="w-1/2 hidden  lg:max-h-[1000px] lg:flex relative p-5 text-white rounded-xl overflow-hidden  flex-col justify-between aspect-square">
       <img
         src={bgImage}
         alt="background-image"
