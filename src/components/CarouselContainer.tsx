@@ -18,7 +18,6 @@ const CarouselContainer = () => {
         alt="background-image"
         className="w-full h-full object-cover absolute top-0 left-0 -z-10"
       />
-
       <div className="w-[10%]">
         <img src={logo} alt="logo" className="w-full object-contain" />
       </div>

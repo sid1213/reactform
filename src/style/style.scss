@@ -19,6 +19,9 @@ html {
   .carousel {
     @apply w-1/2 hidden  lg:max-h-[1000px] lg:flex relative p-5 text-white rounded-xl overflow-hidden  flex-col justify-between aspect-square;
   }
+  .form {
+    @apply w-full h-full lg:w-1/2 relative p-5 flex justify-center items-center flex-col text-[#667085] font-bold;
+  }
 }
 
 .button-shadow {
