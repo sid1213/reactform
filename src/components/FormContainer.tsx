@@ -1,10 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import formIcon from "../images/form-icon.svg";
 import mobileImg from "../images/background-img-mobile.png";
 import logo from "../images/logo.png";
+import SignUpForm, { SignUpDetailType } from "./SignUpForm";
+import LoginForm from "./LogInForm";
+import { AiOutlineArrowRight } from "react-icons/ai";
+
+export interface CurrentUserType {
+  isUser: boolean;
+  userIndex: number | undefined;
+  currentUser: SignUpDetailType | undefined;
+}
+const getUserFromLocalStorage = (): CurrentUserType => {
+  const userData = localStorage.getItem("currentUser");
+  if (userData) {
+    return JSON.parse(userData || "");
+  } else {
+    return {
+      isUser: false,
+      userIndex: undefined,
+      currentUser: undefined,
+    };
+  }
+};
+
 const FormContainer = () => {
+  const [pageSwitch, setPageSwitch] = useState<"LOGIN" | "SIGNUP">("LOGIN");
+  const [loggedIn, setLoggedIn] = useState<CurrentUserType>(
+    getUserFromLocalStorage()
+  );
+  const handleLogOut = () => {
+    setLoggedIn({
+      isUser: false,
+      userIndex: undefined,
+      currentUser: undefined,
+    });
+  };
   return (
-    <div className="w-full h-full lg:w-1/2 relative p-5 flex justify-center items-center flex-col text-[#667085] font-bold">
+    <div className="form">
       <div className="block lg:hidden w-full h-full -z-10 absolute top-0 left-0">
         <img
           src={mobileImg}
@@ -15,56 +48,46 @@ const FormContainer = () => {
       <div className="absolute top-10 left-10 w-20">
         <img src={logo} alt="logo img" className="w-full" />
       </div>
-      <div className="text-center">
-        <div className="w-[25%] mx-auto">
-          <img
-            src={formIcon}
-            alt="Form header"
-            className="w-full h-full object-contain"
-          />
-        </div>
-        <h2 className="text-4xl font-extrabold ">
-          Welcome <span className="text-[#08A593]">back!</span>
-        </h2>
-        <p className="text-xl font-semibold ">Glad to see you, Again!</p>
-      </div>
-      <form
-        action=""
-        className=" mt-10 flex flex-col w-full items-center space-y-3"
-      >
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Please Enter your Email"
-          className=" w-full max-w-[500px] lg:w-3/4 block p-4 rounded-lg border bg-white border-[ #464660]"
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Please Enter your Password"
-          className=" w-full max-w-[500px] lg:w-3/4 block p-4 rounded-lg border border-[ #464660]"
-        />
-        <div className=" w-full max-w-[500px] lg:w-3/4 ">
-          <a className="float-right" href="#">
-            Forgot Password?
-          </a>
-        </div>
 
-        <input
-          type="submit"
-          value="Log In"
-          className=" lg:bg-[#020100] bg-[#08A593] button-shadow text-white font-extrabold  w-full max-w-[500px] lg:w-3/4 block p-4 rounded-lg"
-        />
+      {!loggedIn.isUser ? (
+        <div className="text-center">
+          <div className="w-[25%] mx-auto">
+            <img
+              src={formIcon}
+              alt="Form header"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <h2 className="text-4xl font-extrabold ">
+            Welcome <span className="text-[#08A593]">back!</span>
+          </h2>
+          <p className="text-xl font-semibold ">Glad to see you, Again!</p>
+        </div>
+      ) : (
+        ""
+      )}
 
-        <p className="mt-10I ">
-          Don’t have an account yet?
-          <a className="float-right text-[#08A593] ml-1" href="#">
-            Sign Up
-          </a>
-        </p>
-      </form>
+      {!loggedIn.isUser ? (
+        pageSwitch === "SIGNUP" ? (
+          <SignUpForm setPageSwitch={setPageSwitch} />
+        ) : pageSwitch === "LOGIN" ? (
+          <LoginForm setPageSwitch={setPageSwitch} setLoggedIn={setLoggedIn} />
+        ) : (
+          ""
+        )
+      ) : (
+        <div>
+          <h1 className="mt-20 text-4xl font-extrabold">
+            Welcome {loggedIn.currentUser?.username}
+          </h1>
+          <button
+            className="cursor-pointer bg-blue-500 text-white px-5 py-3 rounded-xl mt-5 flex  space-x-3 items-center"
+            onClick={handleLogOut}
+          >
+            <h6>Log out</h6> <AiOutlineArrowRight />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
